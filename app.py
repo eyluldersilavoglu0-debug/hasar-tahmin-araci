@@ -32,27 +32,24 @@ GUVEN_ESIGI = 0.45
 
 # (c) Çatlak yoğunluğu kuralı.
 def CATLAK_KURALI(*args, **kwargs):
-  Tespitler = args[0] if args else None
   """Çatlak kutu sayısı ve toplam alan oranını birleştirerek 0-1 arası skor üretir."""
+  detections = args[0] if args else kwargs.get("detections", None)
+
+  if detections is None or len(detections) == 0:
+    return 0.25  # Hiç çatlak yoksa taban hasar skoru
+
+  # Kutu sayısını normalize et
   kutu_sayisi = len(detections)
-
-  if kutu_sayisi == 0:
-    return 0.05  # Hiç çatlak yoksa çok düşük hasar skoru
-
-  # Kutu sayısını normalize et (Örn: max 10 kutu varsayımıyla sınırla)
   sayi_orani = min(kutu_sayisi / 10.0, 1.0)
 
-  # Tespit edilen kutuların alanlarının toplamını hesapla (oran bazlı)
-  # detections.area, kutu alanlarını verir (piksel bağımsız, normalize edilmiş alan)
+  # Toplam alan oranını hesapla
   toplam_alan = (
-      sum(detections.area) if hasattr(detections, 'area') else 0.1
+      sum(detections.area) if hasattr(detections, "area") else 0.1
   )
   alan_orani = min(toplam_alan, 1.0)
 
-  # İki kriteri ağırlıklı olarak birleştir (Ağırlık: %40 sayı, %60 alan büyüklüğü)
+  # İki kriteri ağırlıklı birleştir ve ölçekle
   skor = (sayi_orani * 0.4) + (alan_orani * 0.6)
-
-  # Skoru hocanın istediği 0.25 - 0.88 hasar aralığına ölçekle
   final_skor = 0.25 + (skor * 0.63)
 
   return round(min(max(final_skor, 0.25), 0.88), 2)
