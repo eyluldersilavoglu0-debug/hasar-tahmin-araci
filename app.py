@@ -6,8 +6,7 @@ Fotoğraftaki çatlakları bir Roboflow modeliyle bulur, çatlak yoğunluğunu s
 yazdığınız kuralla hesaplar ve eğittiğiniz Random Forest modeliyle bina hasar
 sınıfını tahmin eder.
 
-Yalnızca "1. ÖĞRENCİNİN DEĞİŞTİRECEĞİ BÖLÜM" kısmını düzenleyin.
-Roboflow API anahtarını bu dosyaya YAZMAYIN; Streamlit'in "Secrets" bölümüne girin.
+
 """
 import json
 import os
@@ -22,7 +21,7 @@ from inference_sdk import InferenceConfiguration, InferenceHTTPClient
 from PIL import Image
 
 # ======================================================================
-# 1. ÖĞRENCİNİN DEĞİŞTİRECEĞİ BÖLÜM
+#
 # ======================================================================
 
 # (a) Roboflow Universe'ten seçtiğiniz çatlak tespit modelinin kimliği
@@ -59,7 +58,7 @@ def CATLAK_KURALI(detections):
 
   return round(min(max(final_skor, 0.25), 0.88), 2)
 # ======================================================================
-# 2. SABİT BÖLÜM (değiştirmeyin)
+# 
 # ======================================================================
 MODEL_YOLU = "models/hasar_modeli.joblib"
 META_YOLU = "models/meta.json"
