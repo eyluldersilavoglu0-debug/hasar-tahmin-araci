@@ -31,7 +31,8 @@ GUVEN_ESIGI = 0.45
 
 
 # (c) Çatlak yoğunluğu kuralı.
-def CATLAK_KURALI(detections):
+def CATLAK_KURALI(*args, **kwargs):
+  Tespitler = args[0] if args else None
   """Çatlak kutu sayısı ve toplam alan oranını birleştirerek 0-1 arası skor üretir."""
   kutu_sayisi = len(detections)
 
