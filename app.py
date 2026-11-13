@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Hafta 6 Ödevi — Deprem Sonrası Hasar Tahmin Aracı (şablon)
+Hafta 6 Ödevi — Deprem Sonrası Hasar Tahmin Aracı 
 
 Fotoğraftaki çatlakları bir Roboflow modeliyle bulur, çatlak yoğunluğunu sizin
 yazdığınız kuralla hesaplar ve eğittiğiniz Random Forest modeliyle bina hasar
@@ -20,9 +20,7 @@ import supervision as sv
 from inference_sdk import InferenceConfiguration, InferenceHTTPClient
 from PIL import Image
 
-# ======================================================================
-#
-# ======================================================================
+
 
 # (a) Roboflow Universe'ten seçtiğiniz çatlak tespit modelinin kimliği
 #     (proje/sürüm biçiminde, örn. "wall-crack-detection-abc12/3")
@@ -57,9 +55,7 @@ def CATLAK_KURALI(detections):
   final_skor = 0.25 + (skor * 0.63)
 
   return round(min(max(final_skor, 0.25), 0.88), 2)
-# ======================================================================
-# 
-# ======================================================================
+
 MODEL_YOLU = "models/hasar_modeli.joblib"
 META_YOLU = "models/meta.json"
 ETIKET_RENK = {"Hasarsız": "#2E7D32", "Hafif": "#9E9D24", "Orta": "#EF6C00",
